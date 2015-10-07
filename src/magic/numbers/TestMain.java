@@ -26,18 +26,12 @@ public class TestMain {
 
     public static String merge(List<Integer> a, List<String> b) {
         int c1 = 0, c2 = 0;
-        List<Object> res = new LinkedList<>();
-
+        String result = "";
         while(c1 < a.size() || c2 < b.size()) {
             if(c1 < a.size())
-                res.add(a.get(c1++));
+                result += a.get(c1++).toString();
             if(c2 < b.size())
-                res.add(b.get(c2++));
-        }
-        String result = "";
-        for(Object value: res) {
-
-            result += value;
+                result += b.get(c2++).toString();
         }
         return result;
     }
@@ -57,22 +51,11 @@ public class TestMain {
             if (sign.getPreviousValues().size() < deep) {
                 addBranches(sign, deep, signs, results);
             } else {
-                addToList(results, sign.getPreviousValues());
+                results.add(sign.getPreviousValues());
+                break;
             }
         }
 
-    }
-
-    private static void addToList(List<List<String>> results, List<String> result) {
-        boolean contains = false;
-        for(List<String> values : results) {
-            if(values.equals(result)) {
-                contains = true;
-            }
-        }
-        if(!contains) {
-            results.add(result);
-        }
     }
 
     private static void printArray(List<List<String>> values, List<Integer> numbers) throws ScriptException {
@@ -80,7 +63,7 @@ public class TestMain {
             String evaluate = merge(numbers, item);
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName("js");
-            Integer eval = (Integer) engine.eval(evaluate);
+            Object eval = engine.eval(evaluate);
             if(eval.equals(100)) {
                 System.out.println(evaluate + "=" + eval);
             }
