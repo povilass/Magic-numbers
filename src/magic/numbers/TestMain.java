@@ -59,10 +59,10 @@ public class TestMain {
     }
 
     private static void printArray(List<List<String>> values, List<Integer> numbers) throws ScriptException {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("js");
         for(List<String> item : values) {
             String evaluate = merge(numbers, item);
-            ScriptEngineManager manager = new ScriptEngineManager();
-            ScriptEngine engine = manager.getEngineByName("js");
             Object eval = engine.eval(evaluate);
             if(eval.equals(100)) {
                 System.out.println(evaluate + "=" + eval);
